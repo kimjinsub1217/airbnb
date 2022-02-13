@@ -2,6 +2,8 @@ package com.example.toyproject014_airbnb
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.naver.maps.map.BuildConfig
 import com.naver.maps.map.MapView
 
 
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mapView.onCreate(savedInstanceState)
+
     }
 
     override fun onStart() {
@@ -48,5 +51,9 @@ class MainActivity : AppCompatActivity() {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+
     }
+
+
+
 }
