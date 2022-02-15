@@ -8,6 +8,7 @@ localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 def naver_map_client_id = localProperties.getProperty('naver_map_client_id')
 
 
+
 android {
     compileSdk 31
 
@@ -18,9 +19,13 @@ android {
         versionCode 1
         versionName "1.0"
 
+        //manifest에서 사용하기
         manifestPlaceholders = [
                 naver_map_client_id: naver_map_client_id
         ]
+
+        //프로젝트에서 사용하기
+        buildConfigField "String", "naver_map_client_id ", localProperties['naver_map_client_id2']
     }
 
     buildTypes {
