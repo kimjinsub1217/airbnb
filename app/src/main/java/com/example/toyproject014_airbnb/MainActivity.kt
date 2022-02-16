@@ -11,12 +11,14 @@ import com.naver.maps.map.BuildConfig
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var naverMap: NaverMap
-    private lateinit var locationSource:FusedLocationSource
+    private lateinit var locationSource: FusedLocationSource
 
     private val mapView: MapView by lazy {
         findViewById<MapView>(R.id.mapView)
@@ -41,14 +43,53 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val uiSettings = naverMap.uiSettings
         uiSettings.isLocationButtonEnabled = true
 
-        locationSource = FusedLocationSource(this@MainActivity,LOCATION_PERMISSION_REQUEST_CODE )
-        naverMap.locationSource =locationSource
+        locationSource = FusedLocationSource(this@MainActivity, LOCATION_PERMISSION_REQUEST_CODE)
+        naverMap.locationSource = locationSource
 
-        val marker = Marker()
-        marker.position = LatLng(36.793597908715086, 127.00211281622816)
-        marker.map = naverMap
-        marker.icon =MarkerIcons.BLACK
-        marker.iconTintColor = Color.RED
+
+
+        getHouseListFromAPI()
+    }
+
+    private fun getHouseListFromAPI() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://run.mocky.io")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        retrofit.create(HouseService::class.java).also {
+            it.getHouseList()
+                .enqueue(object : Callback<HouseDto> {
+                    override fun onResponse(call: Call<HouseDto>, response: Response<HouseDto>) {
+                        if (response.isSuccessful.not()) {
+                            // 실패 처리에 대한 구현
+                            return
+                        }
+
+                        response.body()?.let { dto ->
+                            updateMarker(dto.items)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<HouseDto>, t: Throwable) {
+                        // 실패 처리에 대한 구현
+                    }
+
+                })
+        }
+    }
+
+    private fun updateMarker(house: List<HouseModel>) {
+        house.forEach { house ->
+            val marker = Marker()
+            marker.position = LatLng(house.lat, house.lng)
+            //todo 마커 클릭 리스너
+            marker.map = naverMap
+            marker.tag = house.id
+            marker.icon = MarkerIcons.BLACK
+            marker.iconTintColor = Color.RED
+
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -57,12 +98,12 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode != LOCATION_PERMISSION_REQUEST_CODE){
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
             return
         }
 
-        if(locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)){
-            if(!locationSource.isActivated){
+        if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
+            if (!locationSource.isActivated) {
                 naverMap.locationTrackingMode = LocationTrackingMode.None
             }
             return
