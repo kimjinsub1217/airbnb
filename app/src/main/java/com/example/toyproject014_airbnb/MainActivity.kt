@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.graphics.ColorUtils
+import androidx.viewpager2.widget.ViewPager2
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.BuildConfig
@@ -24,12 +25,20 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         findViewById<MapView>(R.id.mapView)
     }
 
+    private val viewPager: ViewPager2 by lazy {
+        findViewById(R.id.houseViewPager)
+    }
+
+    private val viewPagerAdapter = HouseViewPagerAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mapView.onCreate(savedInstanceState)
 
         mapView.getMapAsync(this)
+
+        viewPager.adapter = viewPagerAdapter
     }
 
     override fun onMapReady(map: NaverMap) {
@@ -68,6 +77,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
                         response.body()?.let { dto ->
                             updateMarker(dto.items)
+                            viewPagerAdapter.submitList(dto.items)
                         }
                     }
 
