@@ -21,4 +21,5 @@ Glide
 
 ## ✔실행화면
 ![image](https://user-images.githubusercontent.com/76811495/154654117-05f28dd3-f3e5-44c2-a3e2-1116e1116945.png)
-<>
+<br>
+<메인화면>
