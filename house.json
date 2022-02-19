@@ -1,0 +1,44 @@
+{
+    "items":[
+        {
+            "id":1,
+            "title" : "온양온천역!! 최저가!! 레지던스!!",
+            "price":"23,000원",
+            "lat":36.781569477474, 
+            "lng":127.00402104111085,
+            "imgUrl":"https://i.picsum.photos/id/892/200/200.jpg?hmac=lMI1NzfAzgWlBV0lCCLYXsxRxsq5Mwr-RK9K6AId4X4"
+        },
+        {
+            "id":2,
+            "title" : "온양온천역!! 위치 초 근접!!",
+            "price":"73,000원",
+            "lat":36.78076547879966,
+            "lng":127.00459676426406, 
+            "imgUrl":"https://i.picsum.photos/id/3/200/200.jpg?hmac=N5yYUNYl5gOUcaMmTtnNNtx839TN2qaNM4SaXhQl65U"
+        },
+        {
+            "id":3,
+            "title" : "아산터미널근처!!초호화!!",
+            "price":"173,000원",
+            "lat":36.78454082153451,
+            "lng":127.0150844853239, 
+            "imgUrl":"https://i.picsum.photos/id/313/200/200.jpg?hmac=rh2PdOLFkEclUr6nN2KdavcsSZIHVkYnv9D0BtJjykA"
+        },
+        {
+            "id":4,
+            "title" : "아산터미널!! 마지막 한 자리",
+            "price":"33,000원",
+            "lat":36.78355473577627, 
+            "lng":127.01656450697973, 
+            "imgUrl":"https://i.picsum.photos/id/85/200/200.jpg?hmac=gQRdT-HPw1azaNf38WLW_QZv7aC0WjwOSM4Sf5kWm3U"
+        },
+        {
+            "id":5,
+            "title" : "아산시청 근처!! 오늘만 특가",
+            "price":"373,000원",
+            "lat":36.789000072795176, 
+            "lng":127.0019835049816, 
+            "imgUrl":"https://i.picsum.photos/id/826/200/200.jpg?hmac=WlCuCjxEhXh_s4IkOpulPoB-LOoGjfZwP4GjNnkzTLA"
+        }
+    ]
+}
